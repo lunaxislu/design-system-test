@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { CategoryButton } from "../components/CategoryButton";
+
 import { fn } from "storybook/test";
 
 const meta = {
@@ -12,9 +13,9 @@ const meta = {
   argTypes: {},
   args: {
     onClick: fn(),
-    iconAlt: "iconAlt",
+    iconAlt: "Category Icon",
     iconPath: "/icons/ic-category.svg",
-    text: "text",
+    text: "Category",
   },
 } satisfies Meta<typeof CategoryButton>;
 
