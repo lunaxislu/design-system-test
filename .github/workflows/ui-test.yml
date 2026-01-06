@@ -15,7 +15,7 @@ on:
     types: [opened, synchronize, reopened, ready_for_review] # 일반적으로 사용되는 타입들
 jobs:
   accessibility-test:
-    name: Run accessibility-test
+    name: accessibility-test
     runs-on: ubuntu-latest
     # container:
     # Make sure to grab the latest version of the Playwright image
