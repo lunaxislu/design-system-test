@@ -8,7 +8,7 @@ interface Props {
 export function CategoryButton({ iconAlt, iconPath, onClick, text }: Props) {
   return (
     <button
-      className={`rounded-default-button border border-primary text-primary text-base font-bold pl-[22px] pr-[21px] py-4 flex flex-col items-center`}
+      className={`rounded-default-button border border-primary text-mono100 text-base font-bold pl-[22px] pr-[21px] py-4 flex flex-col items-center`}
       onClick={onClick}
     >
       <img src={iconPath} alt={iconAlt} />
