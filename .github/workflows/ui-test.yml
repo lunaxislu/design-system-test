@@ -8,7 +8,9 @@ jobs:
     container:
       # Make sure to grab the latest version of the Playwright image
       # https://playwright.dev/docs/docker#pull-the-image
-      image: mcr.microsoft.com/playwright:v1.52.0-noble
+      # ❌ 삭제: container 섹션을 통째로 날립니다. (버전 락인 해제)
+    # container:
+    #   image: mcr.microsoft.com/playwright:v1.52.0-noble
     steps:
       - uses: actions/checkout@v4
 
@@ -19,7 +21,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
+      # ✅ 추가: 현재 설치된 Playwright 버전(1.57.0 등)에 딱 맞는 브라우저를 즉시 다운로드
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
       - name: Run tests
         run: npm run test-storybook
 
