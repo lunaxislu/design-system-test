@@ -8,7 +8,7 @@ on:
   #     - "dev"
 
   # ✅ Pull Request가 발생했을 때만 실행되도록 설정
-  pull_request:
+  push:
     branches-ignore:
       - "main"
       - "dev"
@@ -16,7 +16,7 @@ on:
     # branches:
     #   - "main"
     #   - "dev"
-    types: [opened, synchronize, reopened, ready_for_review] # 일반적으로 사용되는 타입들
+  #   types: [opened, synchronize, reopened, ready_for_review] # 일반적으로 사용되는 타입들
 jobs:
   accessibility-test:
     name: Run accessibility-test
