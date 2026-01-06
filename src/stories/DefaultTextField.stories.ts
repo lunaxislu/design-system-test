@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { DefaultTextField } from "../components/DefaultTextField";
+import { DefaultTextField } from "@/components/DefaultTextField";
 import { fn } from "storybook/test";
 
 const meta = {
@@ -37,6 +37,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     value: "안녕하세요 ",
-    iconPath: "/icons/delete_dark.svg"
-  }
+    iconPath: "/icons/delete_dark.svg",
+  },
 };

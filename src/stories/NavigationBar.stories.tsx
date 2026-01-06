@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { fn } from "storybook/test";
-import { NavigationBar } from "../components/NavigationBar";
+import { NavigationBar } from "@/components/NavigationBar";
 
 const meta = {
   title: "navigation/NavigationBar",
