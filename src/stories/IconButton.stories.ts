@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { IconButton } from "../components/IconButton";
+import { IconButton } from "@/components/IconButton";
 
 import { fn } from "storybook/test";
 const meta = {
