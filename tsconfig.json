@@ -3,5 +3,13 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "compilerOptions": {
+    "baseUrl": ".", // 프로젝트 루트를 기준으로 경로 해석
+    "paths": {
+      "@/*": ["src/*"], // @/로 시작하는 경로는 src/ 폴더로 매핑
+      "@/components/*": ["src/components/*"] // @/components/로 시작하는 경로는 src/components/ 폴더로 매핑
+    }
+    // ... 기존 다른 설정들
+  }
 }
