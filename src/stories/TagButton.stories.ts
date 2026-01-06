@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { TagButton } from "../components/TagButton";
+import { TagButton } from "@/components/TagButton";
 import { fn } from "storybook/test";
 
 const meta = {

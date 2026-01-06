@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { CategoryButton } from "../components/CategoryButton";
+import { CategoryButton } from "@/components/CategoryButton";
 
 import { fn } from "storybook/test";
 

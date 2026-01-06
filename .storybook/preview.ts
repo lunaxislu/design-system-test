@@ -1,5 +1,5 @@
 import type { Preview } from "@storybook/react-vite";
-import "../src/index.css";
+import "@/index.css";
 import "@fontsource/pretendard/400.css";
 import "@fontsource/pretendard/700.css";
 
