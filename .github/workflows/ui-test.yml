@@ -1,6 +1,10 @@
 name: "UI TEST"
 
-on: push
+on:
+  push:
+    branches-ignore:
+      - "main"
+      - "dev"
 
 jobs:
   accessibility-test:
