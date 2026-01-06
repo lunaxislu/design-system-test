@@ -1,13 +1,25 @@
 name: "UI TEST"
 
 on:
-  push:
+  # push 트리거를 제거하거나 다음처럼 pull_request로 변경합니다.
+  # push:
+  #   branches-ignore:
+  #     - "main"
+  #     - "dev"
+
+  # ✅ Pull Request가 발생했을 때만 실행되도록 설정
+  pull_request:
     branches-ignore:
       - "main"
       - "dev"
-
+    # 필요하다면 특정 타겟 브랜치에 대해서만 실행되도록 설정할 수 있습니다.
+    # branches:
+    #   - "main"
+    #   - "dev"
+    types: [opened, synchronize, reopened, ready_for_review] # 일반적으로 사용되는 타입들
 jobs:
   accessibility-test:
+    name: Run accessibility-test
     runs-on: ubuntu-latest
     container:
       # Make sure to grab the latest version of the Playwright image
