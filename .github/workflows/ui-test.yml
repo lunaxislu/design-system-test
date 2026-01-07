@@ -1,16 +1,10 @@
-name: UI - PR
+# .github/workflows/pr-ui-check.yml
+name: UI - PR (to dev)
 
 on:
-  # ✅ Pull Request가 발생했을 때만 실행되도록 설정
   pull_request:
-    branches:
-      - main
-      - dev
-    types:
-      - opened
-      - synchronize
-      - reopened
-      - ready_for_review
+    branches: [dev]
+    types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
   accessibility-test:
@@ -18,36 +12,42 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 22.12.0
+          node-version: 22.20.0
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps
+      - run: npm run test-storybook
 
-      - name: Install dependencies
-        run: npm ci
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-      - name: Run tests
-        run: npm run test-storybook
-
-  chromatic:
-    #dependency
-    needs: accessibility-test
-    name: Run Chromatic
+  ui-tests:
+    name: UI Tests
+    needs: [accessibility-test]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.20.0
+          cache: npm
+      - run: npm ci
+      # NOTE: 여기서는 required check 이름을 맞추기 위해 동일 테스트를 다시 실행하도록 두었습니다.
+      # 실제 의미에 맞게 lint/typecheck/unit-test 등으로 교체해도 됩니다.
+      - run: npm run test-storybook
+
+  chromatic:
+    name: Run Chromatic
+    needs: [ui-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22.20.0
-      - name: Install dependencies
-        # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
-        run: npm ci
-      - name: Run Chromatic
-        uses: chromaui/action@latest
+          cache: npm
+      - run: npm ci
+      - uses: chromaui/action@latest
         with:
-          # Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}

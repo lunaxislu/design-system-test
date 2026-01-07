@@ -26,6 +26,13 @@ jobs:
         run: npm ci
 
       - name: Run Chromatic (dev baseline)
+        # ------------------------------
+        # dev는 UI 기준선(SSOT) 브랜치다.
+        # PR에서 이미 test + chromatic 검증을 끝냈다고 가정하고,
+        # dev merge(push) 시점에는 "기준선 갱신"이 핵심 목적이다.
+        # 필요하면 dev에서도 test-storybook을 추가할 수 있으나(팀 리스크 성향),
+        # 중복 실행으로 CI 시간이 늘어난다.
+        # ------------------------------
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
@@ -37,6 +44,8 @@ jobs:
     steps:
       - name: Checkout (main)
         uses: actions/checkout@v4
+        # 릴리즈 이벤트는 태그/특정 커밋을 가리킬 수 있지만,
+        # 본 전략에서는 "배포 브랜치(main)의 스냅샷"을 남기는 것이 목적이므로 main으로 고정
         with:
           ref: main
           fetch-depth: 0
@@ -50,6 +59,12 @@ jobs:
         run: npm ci
 
       - name: Run Chromatic (main release snapshot)
+        # ------------------------------
+        # main은 항상 최신 Storybook을 유지하지 않는다.
+        # 협업/검증 기준선은 dev에 두고,
+        # main은 "릴리즈 스냅샷"이 필요할 때만 기록한다.
+        # (노이즈/비용/불필요 히스토리 증가 방지)
+        # ------------------------------
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
