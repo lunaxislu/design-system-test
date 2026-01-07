@@ -1,0 +1,55 @@
+name: UI - Baseline (dev) & Release Snapshot (main)
+
+on:
+  push:
+    branches: [dev]
+  release:
+    types: [published]
+
+jobs:
+  dev-baseline:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (dev)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.20.0
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Chromatic (dev baseline)
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+
+  main-release-snapshot:
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (main)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.20.0
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Chromatic (main release snapshot)
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
