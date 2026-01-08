@@ -10,7 +10,7 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {},
   args: {
-    className: "border-primary",
+    className: "border-red-500",
   },
 } satisfies Meta<typeof EmptyState>;
 
