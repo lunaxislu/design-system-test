@@ -20,7 +20,7 @@ const color: Record<PrimaryButtonTheme, string> = {
 export function PrimaryButton({ theme, children, onClick, isDisabled }: Props) {
   return (
     <button
-      className={`w-full rounded-default-button h-[59px] ${disabled} ${color[theme]}`}
+      className={`w-full rounded-default-button h-14.75 ${disabled} ${color[theme]}`}
       onClick={onClick}
       disabled={isDisabled}
     >
